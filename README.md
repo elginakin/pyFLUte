@@ -5,6 +5,7 @@
 
 ## Dependencies: 
 * [seqkit](https://bioinf.shenwei.me/seqkit/) 
+* [Biopython](https://biopython.org/)
 * Python ≥3.0
 
 ## Our Issue pyFLUte addresses:
