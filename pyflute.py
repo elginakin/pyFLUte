@@ -18,7 +18,7 @@ for package in packages:
 
 # Parse command line arguments
 parser = argparse.ArgumentParser(description='pyFLUte Script')
-parser.add_argument('-i', '--input', help='Input directory for the FASTA file')
+parser.add_argument('-i', '--input', help='Input file in FASTA format')
 parser.add_argument('-o', '--output', help='Output directory for the extracted sequences')
 parser.add_argument('-r', '--stats', action='store_true', help='Generates a report for each sorted segment file')
 args = parser.parse_args()
@@ -40,19 +40,19 @@ logo = '''
 print(logo)
 print("")
 
-# Set input and output directories
-input_dir = args.input
+# Set input file and output directory
+input_file = args.input
 output_dir = args.output
 
-# Check if input directory is specified
-if input_dir is None:
-    print("Input directory is not specified. Exiting...")
+# Check if input file is specified
+if input_file is None:
+    print("Input file is not specified. Exiting...")
     parser.print_help()
     sys.exit(1)
 
-# Check if input directory exists
-if not os.path.exists(input_dir):
-    print(f"Input directory '{input_dir}' does not exist. Exiting...")
+# Check if input file exists
+if not os.path.exists(input_file):
+    print(f"Input file '{input_file}' does not exist. Exiting...")
     sys.exit(1)
 
 # Create output directory if it doesn't exist
@@ -64,21 +64,24 @@ else:
 
 # Define segments and their regex patterns
 segments = {
-    "1_PB2": ".*_1$|.*\|1$|.*\|PB2$",
-    "2_PB1": ".*_2$|.*\|2$|.*\|PB1$",
-    "3_PA": ".*_3$|.*\|3$|.*\|PA$",
-    "4_HA": ".*_4$|.*\|4$|.*\|HA$",
-    "5_NP": ".*_5$|.*\|5$|.*\|NP$",
-    "6_NA": ".*_6$|.*\|6$|.*\|NA$",
-    "7_M": ".*_7$|.*\|7$|.*\|M$",
-    "8_NS": ".*_8$|.*\|8$|.*\|NS$"
+    "PB2": ".*_1$|.*\|1$|.*\|PB2$",
+    "PB1": ".*_2$|.*\|2$|.*\|PB1$",
+    "PA": ".*_3$|.*\|3$|.*\|PA$",
+    "HA": ".*_4$|.*\|4$|.*\|HA$",
+    "NP": ".*_5$|.*\|5$|.*\|NP$",
+    "NA": ".*_6$|.*\|6$|.*\|NA$",
+    "M": ".*_7$|.*\|7$|.*\|MP$",
+    "NS": ".*_8$|.*\|8$|.*\|NS$"
 }
 
 # Loop through fasta and extract segments
-for segment, regex in segments.items():
+total_segments = len(segments)
+for index, (segment, regex) in enumerate(segments.items(), start=1):
     output_file = os.path.join(output_dir, f"{segment}.fasta")
-    command = f"seqkit grep -r -p '{regex}' {input_dir}/*.fasta > {output_file}"
+    command = f"seqkit grep -r -p '{regex}' {input_file} > {output_file}"
     subprocess.run(command, shell=True)
+    progress = index / total_segments * 100
+    print(f"Sorting segment {segment}: {progress:.2f}% complete")
 
 print('segments sorted')
 
