@@ -28,7 +28,7 @@ usage: pyflute.py [-h] [-i INPUT] [-o OUTPUT] [-r]
 
   -h, --help            show this help message and exit
   -i INPUT, --input INPUT
-                        Input directory for the FASTA file
+                        Input file for the FASTA file
   -o OUTPUT, --output OUTPUT
                         Output directory for the extracted sequences
   -r, --stats           Generates a report for each sorted segment file
