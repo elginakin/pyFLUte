@@ -17,7 +17,7 @@ for package in packages:
         install(package)
 
 # Parse command line arguments
-parser = argparse.ArgumentParser(description='pyFLUte Script')
+parser = argparse.ArgumentParser(description='pyflute Script')
 parser.add_argument('-i', '--input', help='Input file in FASTA format')
 parser.add_argument('-o', '--output', help='Output directory for the extracted sequences')
 parser.add_argument('-r', '--stats', action='store_true', help='Generates a report for each sorted segment file')
@@ -64,14 +64,14 @@ else:
 
 # Define segments and their regex patterns
 segments = {
-    "PB2": ".*_1$|.*\|1$|.*\|PB2$",
-    "PB1": ".*_2$|.*\|2$|.*\|PB1$",
-    "PA": ".*_3$|.*\|3$|.*\|PA$",
-    "HA": ".*_4$|.*\|4$|.*\|HA$",
-    "NP": ".*_5$|.*\|5$|.*\|NP$",
-    "NA": ".*_6$|.*\|6$|.*\|NA$",
-    "M": ".*_7$|.*\|7$|.*\|MP$",
-    "NS": ".*_8$|.*\|8$|.*\|NS$"
+    "pb2": ".*_1$|.*\|1$|.*\|PB2$",
+    "pb1": ".*_2$|.*\|2$|.*\|PB1$",
+    "pa": ".*_3$|.*\|3$|.*\|PA$",
+    "ha": ".*_4$|.*\|4$|.*\|HA$",
+    "np": ".*_5$|.*\|5$|.*\|NP$",
+    "na": ".*_6$|.*\|6$|.*\|NA$",
+    "mp": ".*_7$|.*\|7$|.*\|MP$",
+    "ns": ".*_8$|.*\|8$|.*\|NS$"
 }
 
 # Loop through fasta and extract segments
